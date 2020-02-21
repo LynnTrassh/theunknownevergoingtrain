@@ -37,6 +37,11 @@ namespace Z
             transform.eulerAngles = Value;
         }
 
+        public void SetScale(float Value)
+        {
+            transform.localScale = new Vector3(Value, Value, Value);
+        }
+
         public void SetActive(bool Value)
         {
             Active = Value;
@@ -53,6 +58,7 @@ namespace Z
             GameObject G = Instantiate(TargetObject);
             G.transform.position = transform.position;
             G.transform.eulerAngles = transform.eulerAngles;
+            G.transform.localScale = transform.localScale;
             ConstructionControl.Main.OnConstruct(G);
             OnConstruct(G);
         }

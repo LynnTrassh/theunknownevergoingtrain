@@ -14,7 +14,7 @@ namespace Z
         // Start is called before the first frame update
         void Start()
         {
-
+            ProgressionUpdate();
         }
 
         // Update is called once per frame
@@ -36,9 +36,11 @@ namespace Z
             float Rate = Progression / MaxProgression;
             for (int i = 0; i < MeshBases.Count; i++)
             {
-                if (Rate >= MaxValues[i])
-                    continue;
-                SetMesh(i);
+                if (Rate < MaxValues[i])
+                {
+                    SetMesh(i);
+                    break;
+                }
             }
         }
 

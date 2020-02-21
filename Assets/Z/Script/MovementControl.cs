@@ -81,7 +81,7 @@ namespace Z
         public void SetSpeed(Vector3 Value)
         {
             Rig.velocity = Value;
-            if ((Value.x == 0 && Value.y == 0) || Value.z != 0)
+            if ((Value.x == 0 && Value.z == 0) || Value.y != 0)
                 Anim.SetBool("Move", false);
             else
                 Anim.SetBool("Move", true);

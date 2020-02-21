@@ -8,6 +8,7 @@ namespace Z
         [HideInInspector]
         public static ConstructionControl Main;
         public bool ConstructionMode;
+        public float Scale = 1f;
         public GameObject RayPoint;
         public GameObject CharacterPoint;
         public GameObject TempObject;
@@ -109,47 +110,47 @@ namespace Z
             Ray Y = new Ray(TempObject.transform.position + TempObject.transform.up * 0.01f, -TempObject.transform.up);
             if (Physics.Raycast(Y, out RaycastHit YH, 999f, BeaconRayMask))
             {
-                TempPosition = YH.point + new Vector3(0, CurrentBeacon.Size.y, 0);
+                TempPosition = YH.point + new Vector3(0, CurrentBeacon.Size.y * Scale, 0);
                 TempObject.transform.position = TempPosition;
             }
             else
                 CurrentBeacon.SetActive(false);
 
             Ray Z = new Ray(TempObject.transform.position + TempObject.transform.forward * 0.01f, -TempObject.transform.forward);
-            if (Physics.Raycast(Z, out RaycastHit ZH, CurrentBeacon.Size.z, BeaconRayMask))
+            if (Physics.Raycast(Z, out RaycastHit ZH, CurrentBeacon.Size.z * Scale, BeaconRayMask))
             {
                 float z = ZH.distance;
-                TempPosition += (CurrentBeacon.Size.z - ZH.distance) * TempObject.transform.forward;
+                TempPosition += (CurrentBeacon.Size.z * Scale - ZH.distance) * TempObject.transform.forward;
                 TempObject.transform.position = TempPosition;
-                Ray ZII = new Ray(TempObject.transform.position - TempObject.transform.forward * (0.01f + CurrentBeacon.Size.z), TempObject.transform.forward);
-                if (Physics.Raycast(ZII, CurrentBeacon.Size.z * 2, PositionRayMask))
+                Ray ZII = new Ray(TempObject.transform.position - TempObject.transform.forward * (0.01f + CurrentBeacon.Size.z * Scale), TempObject.transform.forward);
+                if (Physics.Raycast(ZII, CurrentBeacon.Size.z * 2 * Scale, PositionRayMask))
                 {
                     CurrentBeacon.SetActive(false);
                     return;
                 }
             }
 
-            Ray X = new Ray(TempObject.transform.position - TempObject.transform.right * (0.01f + CurrentBeacon.Size.x), TempObject.transform.right);
-            Ray XII = new Ray(TempObject.transform.position + TempObject.transform.right * (0.01f + CurrentBeacon.Size.x), -TempObject.transform.right);
-            if (Physics.Raycast(X, out RaycastHit XH, CurrentBeacon.Size.x * 2, PositionRayMask))
+            Ray X = new Ray(TempObject.transform.position - TempObject.transform.right * (0.01f + CurrentBeacon.Size.x * Scale), TempObject.transform.right);
+            Ray XII = new Ray(TempObject.transform.position + TempObject.transform.right * (0.01f + CurrentBeacon.Size.x * Scale), -TempObject.transform.right);
+            if (Physics.Raycast(X, out RaycastHit XH, CurrentBeacon.Size.x * 2 * Scale, PositionRayMask))
             {
                 float x = XH.distance;
-                TempPosition -= (CurrentBeacon.Size.x * 2 - XH.distance) * TempObject.transform.right;
+                TempPosition -= (CurrentBeacon.Size.x * 2 * Scale - XH.distance) * TempObject.transform.right;
                 TempObject.transform.position = TempPosition;
-                XII = new Ray(TempObject.transform.position + TempObject.transform.right * (0.01f + CurrentBeacon.Size.x), -TempObject.transform.right);
-                if (Physics.Raycast(XII, CurrentBeacon.Size.x * 2, PositionRayMask))
+                XII = new Ray(TempObject.transform.position + TempObject.transform.right * (0.01f + CurrentBeacon.Size.x * Scale), -TempObject.transform.right);
+                if (Physics.Raycast(XII, CurrentBeacon.Size.x * 2 * Scale, PositionRayMask))
                 {
                     CurrentBeacon.SetActive(false);
                     return;
                 }
             }
-            else if (Physics.Raycast(XII, out RaycastHit XHII, CurrentBeacon.Size.x * 2, PositionRayMask))
+            else if (Physics.Raycast(XII, out RaycastHit XHII, CurrentBeacon.Size.x * 2 * Scale, PositionRayMask))
             {
                 float x = XHII.distance;
-                TempPosition += (CurrentBeacon.Size.x * 2 - XHII.distance) * TempObject.transform.right;
+                TempPosition += (CurrentBeacon.Size.x * 2 * Scale - XHII.distance) * TempObject.transform.right;
                 TempObject.transform.position = TempPosition;
-                X = new Ray(TempObject.transform.position - TempObject.transform.right * (0.01f + CurrentBeacon.Size.x), TempObject.transform.right);
-                if (Physics.Raycast(X, CurrentBeacon.Size.x * 2, PositionRayMask))
+                X = new Ray(TempObject.transform.position - TempObject.transform.right * (0.01f + CurrentBeacon.Size.x * Scale), TempObject.transform.right);
+                if (Physics.Raycast(X, CurrentBeacon.Size.x * 2 * Scale, PositionRayMask))
                 {
                     CurrentBeacon.SetActive(false);
                     return;
@@ -164,6 +165,7 @@ namespace Z
 
             CurrentBeacon.SetPosition(TempPosition);
             CurrentBeacon.SetRotation(TempRotation);
+            CurrentBeacon.SetScale(Scale);
         }
 
         public void TryConstruct()

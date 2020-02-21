@@ -9,6 +9,7 @@ namespace Z
         public static MainCharacterControl Main;
         public Animator Anim;
         public GameObject VisionPoint;
+        [Space]
         public Weapon CurrentWeapon;
         public List<Weapon> Weapons;
         public List<GameObject> WeaponObject;
@@ -16,6 +17,8 @@ namespace Z
         public float SwitchAnimDelay;
         public float SwitchProtectedTime;
         [HideInInspector] public float CurrentSwitchProtectedTime;
+        [Space]
+        public List<GameObject> HeightObjects;
 
         public void Awake()
         {
@@ -85,6 +88,12 @@ namespace Z
         {
             if (CurrentSwitchProtectedTime < Value)
                 CurrentSwitchProtectedTime = Value;
+        }
+
+        public void SetHeight(float Value)
+        {
+            foreach (GameObject G in HeightObjects)
+                G.transform.localPosition = new Vector3(G.transform.localPosition.x, Value, G.transform.localPosition.z);
         }
     }
 }

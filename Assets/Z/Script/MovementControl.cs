@@ -73,6 +73,7 @@ namespace Z
                 VerticalPivot.transform.localEulerAngles = 
                     new Vector3(VerticalAngleLimit.x, VerticalPivot.transform.localEulerAngles.y, VerticalPivot.transform.localEulerAngles.z);
             }
+            //asd
         }
 
         public void SetSpeed(Vector3 Value)

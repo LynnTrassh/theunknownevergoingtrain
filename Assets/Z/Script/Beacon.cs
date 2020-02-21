@@ -8,6 +8,7 @@ namespace Z
         [HideInInspector] public bool Active;
         public Vector3 Size;
         public GameObject AnimBase;
+        public GameObject TargetObject;
 
         public void Awake()
         {
@@ -40,6 +41,25 @@ namespace Z
         {
             Active = Value;
             AnimBase.SetActive(Value);
+        }
+
+        public bool CanConstruct()
+        {
+            return Active;
+        }
+
+        public void Construct()
+        {
+            GameObject G = Instantiate(TargetObject);
+            G.transform.position = transform.position;
+            G.transform.eulerAngles = transform.eulerAngles;
+            ConstructionControl.Main.OnConstruct(G);
+            OnConstruct(G);
+        }
+
+        public void OnConstruct(GameObject G)
+        {
+
         }
     }
 }

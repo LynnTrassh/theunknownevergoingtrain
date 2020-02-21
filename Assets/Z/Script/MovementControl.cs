@@ -8,6 +8,7 @@ namespace Z
         public bool Active;
         [Space]
         public Rigidbody Rig;
+        public Animator Anim;
         public float MovementSpeed;
         public float JumpSpeed;
         [Space]
@@ -15,6 +16,7 @@ namespace Z
         public GameObject VerticalPivot;
         public float RotationSpeed;
         public Vector2 VerticalAngleLimit;
+        public Vector3 CurrentRotationSpeed;
 
         public void Awake()
         {
@@ -73,12 +75,16 @@ namespace Z
                 VerticalPivot.transform.localEulerAngles = 
                     new Vector3(VerticalAngleLimit.x, VerticalPivot.transform.localEulerAngles.y, VerticalPivot.transform.localEulerAngles.z);
             }
-            //asd
+            CurrentRotationSpeed = new Vector3(x, y, 0);
         }
 
         public void SetSpeed(Vector3 Value)
         {
             Rig.velocity = Value;
+            if ((Value.x == 0 && Value.y == 0) || Value.z != 0)
+                Anim.SetBool("Move", false);
+            else
+                Anim.SetBool("Move", true);
         }
 
         public static float AbsAngle(float Value)

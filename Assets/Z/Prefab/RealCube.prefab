@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b536b8152a8b9b4ead31e3a28fe0673, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxProgression: 10
+  MaxProgression: 50
   Progression: 0
   MeshBases:
   - {fileID: 367365027319684842}

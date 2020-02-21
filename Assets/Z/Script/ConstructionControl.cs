@@ -7,6 +7,7 @@ namespace Z
     public class ConstructionControl : MonoBehaviour {
         [HideInInspector]
         public static ConstructionControl Main;
+        public bool ConstructionMode;
         public GameObject RayPoint;
         public GameObject CharacterPoint;
         public GameObject TempObject;
@@ -37,6 +38,24 @@ namespace Z
                 if (Input.GetMouseButtonDown(0))
                     TryConstruct();
             }
+        }
+
+        public void EnterConstruction(Beacon B)
+        {
+            if (ConstructionMode)
+                return;
+            ConstructionMode = true;
+            GameObject G = Instantiate(B.gameObject);
+            CurrentBeacon = G.GetComponent<Beacon>();
+        }
+
+        public void LeaveConstruction()
+        {
+            if (!ConstructionMode)
+                return;
+            ConstructionMode = false;
+            if (CurrentBeacon)
+                Destroy(CurrentBeacon.gameObject);
         }
 
         public void BeaconPositionUpdate()

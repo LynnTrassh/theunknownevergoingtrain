@@ -18,6 +18,12 @@ namespace Z
         public float MaxDistance;
         public LayerMask BeaconRayMask;
         public LayerMask PositionRayMask;
+        [Space]
+        public Ray HammerRay;
+        public LayerMask HammerRayMask;
+        public float HammerRange;
+        public Construction CurrentConstruction;
+        public Upgrade CurrentUpgrade;
 
         public void Awake()
         {
@@ -39,6 +45,20 @@ namespace Z
                 if (Input.GetMouseButtonDown(0))
                     TryConstruct();
             }
+
+            HammerUpdate();
+        }
+
+        public void HammerUpdate()
+        {
+            HammerRay.origin = MainCharacterControl.Main.VisionPoint.transform.position;
+            HammerRay.direction = MainCharacterControl.Main.VisionPoint.transform.forward;
+            if (!Physics.Raycast(HammerRay, out RaycastHit Hit, HammerRange, HammerRayMask) || !Hit.transform.GetComponent<Construction>())
+            {
+                CurrentConstruction = null;
+                return;
+            }
+            CurrentConstruction = Hit.transform.GetComponent<Construction>();
         }
 
         public void EnterConstruction(Beacon B)

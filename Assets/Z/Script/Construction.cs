@@ -10,6 +10,7 @@ namespace Z
         public List<GameObject> MeshBases;
         [Tooltip("Exclusive")]
         public List<float> MaxValues;
+        public ObjectInfo Info;
 
         // Start is called before the first frame update
         void Start()
@@ -55,6 +56,11 @@ namespace Z
                 else
                     MeshBases[i].SetActive(false);
             }
+        }
+
+        public ObjectInfo GetInfo()
+        {
+            return Info;
         }
     }
 }

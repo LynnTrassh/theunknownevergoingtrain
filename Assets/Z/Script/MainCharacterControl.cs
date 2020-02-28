@@ -43,6 +43,14 @@ namespace Z
 
             if (Input.GetMouseButtonDown(0))
                 TryAttack();
+
+            if (CurrentWeapon)
+            {
+                if (Input.GetMouseButton(0))
+                    CurrentWeapon.Toggle = true;
+                else
+                    CurrentWeapon.Toggle = false;
+            }
         }
 
         public void SwitchWeapon(Weapon New)

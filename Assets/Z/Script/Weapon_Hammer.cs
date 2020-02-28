@@ -8,6 +8,13 @@ namespace Z
         public float Delay;
         public float Progression;
 
+        public override void Update()
+        {
+            base.Update();
+            if (Toggle && CanAttack())
+                Attack();
+        }
+
         public override void Attack()
         {
             base.Attack();

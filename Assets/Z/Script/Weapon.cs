@@ -8,6 +8,7 @@ namespace Z
         public float CDRate;
         [HideInInspector] public float CDTime;
         public string AnimKey;
+        public bool Toggle;
 
         // Start is called before the first frame update
         void Start()
